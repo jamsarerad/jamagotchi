@@ -2,7 +2,7 @@ package middlewares
 
 import (
     "net/http"
-    "db"
+    "jamagotchi/db"
 )
 
 func AuthMiddleware(next http.Handler) http.Handler {
