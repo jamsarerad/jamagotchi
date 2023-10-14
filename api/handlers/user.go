@@ -3,12 +3,12 @@ package handlers
 import (
     "net/http"
     "encoding/json"
-    "jamagotchi/api/models"
-    "jamagotchi/api/db"
+    "models"
+    "db"
 )
 
 func Register(w http.ResponseWriter, r *http.Request) {
-    var user User // Assume User is a struct you've defined
+    var user models.User // Assume User is a struct you've defined
     _ = json.NewDecoder(r.Body).Decode(&user)
     
     // Register the user in the database

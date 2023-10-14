@@ -1,0 +1,9 @@
+go 1.21.3
+
+use (
+  ./routers
+  ./models
+  ./handlers
+  ./middlewares
+  ./db
+)
