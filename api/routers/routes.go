@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"api/handlers"
-	"api/middlewares"
+	"jamagotchi/handlers"
+	"jamagotchi/middlewares"
 	"github.com/gorilla/mux"
 )
 

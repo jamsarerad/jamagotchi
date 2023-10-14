@@ -2,7 +2,7 @@ package main
 
 import (
 	"net/http"
-	"routes"
+	"api/routes"
 )
 
 func main() {
