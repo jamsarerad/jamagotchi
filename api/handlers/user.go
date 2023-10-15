@@ -12,30 +12,25 @@ func Register(w http.ResponseWriter, r *http.Request) {
   var user models.User // Assume User is a struct you've defined
   _ = json.NewDecoder(r.Body).Decode(&user)
 
-  // Register the user in the database
-  db.RegisterUser(user)
+  // Connect to database
+  database := db.ConnectToUsers()
 
   w.Header().Set("Content-Type", "application/json")
   json.NewEncoder(w).Encode(map[string]string{"message": "User registered successfully"})
 
   // Parse username and password from request body
   var credentials struct {
-    Username string `json:"username"`
-    Password string `json:"password"`
+    Username     string `json:"username"`
+    Password     string `json:"password"`
+    Email        string `json:"email"`
+    LeetCodeUser string `json:"leetcode_username"`
   }
   _ = json.NewDecoder(r.Body).Decode(&credentials)
 
-  // Check username and password against database (in this case, a map)
-  storedPassword, ok := users[credentials.Username]
-  if !ok {
-    http.Error(w, "Invalid credentials", http.StatusUnauthorized)
-    return
-  }
-
-  // Compare hashed passwords
-  if err := bcrypt.CompareHashAndPassword([]byte(storedPassword), []byte(credentials.Password)); err != nil {
-    http.Error(w, "Invalid credentials", http.StatusUnauthorized)
-    return
+  // Register the user in the database
+  _, err := db.RegisterUser(database, credentials.Username, credentials.Email, credentials.Password, credentials.LeetCodeUser)
+  if err != nil {
+    http.Error(w, "Failed to register", http.StatusServiceUnavailable)
   }
 
   // Create a new token

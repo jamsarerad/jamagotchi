@@ -10,7 +10,7 @@ func NewRouter() *mux.Router {
 	r := mux.NewRouter()
 
 	// User-related endpoints
-	r.HandleFunc("/api/register", handlers.Register).Methods("POST")
+	r.HandleFunc("/api/register", handlers.Register).Methods("GET")
 	r.HandleFunc("/api/login", handlers.Login).Methods("POST")
 
 	// Game-related endpoints wrapped with AuthMiddleware

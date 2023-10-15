@@ -2,7 +2,7 @@ package main
 
 import (
 	"net/http"
-	"api/routes"
+	"jamagotchi/routes"
 )
 
 func main() {
